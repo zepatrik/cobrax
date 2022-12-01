@@ -59,10 +59,20 @@ type CommandExecutor struct {
 
 // Exec runs the cobra command with the given reader as STD_IN and the given args appended to the persistent args.
 func (c *CommandExecutor) Exec(stdin io.Reader, args ...string) (stdOut string, stdErr string, err error) {
-	return ExecCtx(c.Ctx, c.New(), stdin, append(c.PersistentArgs, args...)...)
+	return c.ExecCtx(c.Ctx, stdin, args...)
+}
+
+// ExecCtx is the same as [Exec] but with a user-supplied context.
+func (c *CommandExecutor) ExecCtx(ctx context.Context, stdin io.Reader, args ...string) (stdOut string, stdErr string, err error) {
+	return ExecCtx(ctx, c.New(), stdin, append(c.PersistentArgs, args...)...)
 }
 
 // ExecBackground runs the cobra command in the background with the given reader as STD_IN and the given args appended to the persistent args.
 func (c *CommandExecutor) ExecBackground(stdin io.Reader, stdOut, stdErr io.Writer, args ...string) *errgroup.Group {
-	return ExecBackgroundCtx(c.Ctx, c.New(), stdin, stdOut, stdErr, append(c.PersistentArgs, args...)...)
+	return c.ExecBackgroundCtx(c.Ctx, stdin, stdOut, stdErr, args...)
+}
+
+// ExecBackgroundCtx is the same as [ExecBackground] but with a user-supplied context.
+func (c *CommandExecutor) ExecBackgroundCtx(ctx context.Context, stdin io.Reader, stdOut, stdErr io.Writer, args ...string) *errgroup.Group {
+	return ExecBackgroundCtx(ctx, c.New(), stdin, stdOut, stdErr, append(c.PersistentArgs, args...)...)
 }
