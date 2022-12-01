@@ -1,3 +1,6 @@
+// Copyright © 2022 Patrik Neu
+// SPDX-License-Identifier: Apache-2.0
+
 package cobrax
 
 import (
