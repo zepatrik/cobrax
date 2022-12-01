@@ -9,14 +9,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// TestingT is an interface excerpt of testing.TB
+// TestingT is an interface excerpt of [testing.TB].
 type TestingT interface {
 	Errorf(format string, args ...interface{})
 	FailNow()
 	Helper()
 }
 
-// ExecNoErr is a test helper that assumes a successful run from Exec.
+// ExecNoErr is a test helper that assumes a successful run from [Exec].
 func ExecNoErr(t TestingT, cmd *cobra.Command, args ...string) (stdOut string) {
 	t.Helper()
 	ctx, cancel := context.WithCancel(context.Background())
@@ -25,7 +25,7 @@ func ExecNoErr(t TestingT, cmd *cobra.Command, args ...string) (stdOut string) {
 	return ExecNoErrCtx(ctx, t, cmd, args...)
 }
 
-// ExecNoErrCtx is the same as ExecNoErr but with a user-supplied context.
+// ExecNoErrCtx is the same as [ExecNoErr] but with a user-supplied context.
 func ExecNoErrCtx(ctx context.Context, t TestingT, cmd *cobra.Command, args ...string) string {
 	t.Helper()
 	stdOut, stdErr, err := ExecCtx(ctx, cmd, nil, args...)
@@ -42,7 +42,7 @@ func ExecNoErrCtx(ctx context.Context, t TestingT, cmd *cobra.Command, args ...s
 	return stdOut
 }
 
-// ExecExpectedErr is a test helper that assumes a failing run from Exec returning ErrNoPrintButFail
+// ExecExpectedErr is a test helper that assumes a failing run from [Exec] returning [ErrNoPrintButFail].
 func ExecExpectedErr(t TestingT, cmd *cobra.Command, args ...string) (stdErr string) {
 	t.Helper()
 	ctx, cancel := context.WithCancel(context.Background())
@@ -51,7 +51,7 @@ func ExecExpectedErr(t TestingT, cmd *cobra.Command, args ...string) (stdErr str
 	return ExecExpectedErrCtx(ctx, t, cmd, args...)
 }
 
-// ExecExpectedErrCtx is the same as ExecExpectedErr but with a user-supplied context.
+// ExecExpectedErrCtx is the same as [ExecExpectedErr] but with a user-supplied context.
 func ExecExpectedErrCtx(ctx context.Context, t TestingT, cmd *cobra.Command, args ...string) (stdErr string) {
 	t.Helper()
 
@@ -75,7 +75,7 @@ func (c *CommandExecutor) ExecNoErr(t TestingT, args ...string) string {
 	return ExecNoErrCtx(c.Ctx, t, c.New(), append(c.PersistentArgs, args...)...)
 }
 
-// ExecExpectedErr is a test helper that assumes a failing run returning ErrNoPrintButFail. The args are appended to the persistent args.
+// ExecExpectedErr is a test helper that assumes a failing run returning [ErrNoPrintButFail]. The args are appended to the persistent args.
 func (c *CommandExecutor) ExecExpectedErr(t TestingT, args ...string) string {
 	t.Helper()
 	return ExecExpectedErrCtx(c.Ctx, t, c.New(), append(c.PersistentArgs, args...)...)

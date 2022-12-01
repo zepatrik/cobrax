@@ -40,7 +40,7 @@ func Exec(cmd *cobra.Command, stdIn io.Reader, args ...string) (stdOut string, s
 	return ExecCtx(ctx, cmd, stdIn, args...)
 }
 
-// ExecCtx is the same as Exec but with a user-supplied context. This function can also be used outside of tests.
+// ExecCtx is the same as [Exec] but with a user-supplied context. This function can also be used outside of tests.
 func ExecCtx(ctx context.Context, cmd *cobra.Command, stdIn io.Reader, args ...string) (stdOut string, stdErr string, err error) {
 	stdOutB, stdErrB := &bytes.Buffer{}, &bytes.Buffer{}
 	err = ExecBackgroundCtx(ctx, cmd, stdIn, stdOutB, stdErrB, args...).Wait()

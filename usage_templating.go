@@ -72,7 +72,7 @@ func EnableUsageTemplating(cmds ...*cobra.Command) {
 }
 
 // DisableUsageTemplating resets the commands usage template to the default.
-// This can be used to undo the effects of EnableUsageTemplating, specifically for a subcommand.
+// This can be used to undo the effects of [EnableUsageTemplating], specifically for a subcommand.
 func DisableUsageTemplating(cmds ...*cobra.Command) {
 	defaultCmd := new(cobra.Command)
 	for _, cmd := range cmds {
