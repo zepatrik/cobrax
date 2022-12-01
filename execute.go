@@ -1,6 +1,8 @@
 // Copyright © 2022 Patrik Neu
 // SPDX-License-Identifier: Apache-2.0
 
+// Package cobrax helpers for the commonly used https://github.com/spf13/cobra library.
+// It specifically aims to make commands composable and reusable, as well as to make testing easier.
 package cobrax
 
 import (
